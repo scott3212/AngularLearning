@@ -1,0 +1,45 @@
+<form [formGroup]="CustomerModel.formCustomerGroup">
+    Customer Code: 
+    <input 
+        formControlName="CustomerCodeControl" 
+        type=text 
+        [(ngModel)]="CustomerModel.CustomerCode"
+    /><br/>
+    Customer Name: 
+    <input 
+        formControlName="CustomerNameControl" 
+        type=text 
+        [(ngModel)]="CustomerModel.CustomerName"
+    /><br/>
+    Customer Amount: 
+    <input 
+        type=text 
+        [(ngModel)]="CustomerModel.CustomerAmount"
+        [ngModelOptions]="{standalone: true}"
+    /><br/>
+    <input [disabled]="!(CustomerModel.formCustomerGroup.valid)" (click)="add()" type="button" value="Add"/><br/>
+</form>
+<div 
+    *ngIf="CustomerModel.formCustomerGroup.dirty"
+    [hidden]="!(hasError('pattern', 'CustomerCodeControl'))"
+>Customer code format is not proper, it must be four digits</div><br/>
+<div 
+    *ngIf="CustomerModel.formCustomerGroup.dirty"
+    [hidden]="!(hasError('required', 'CustomerNameControl'))"
+>Customer name is required</div><br/>
+<div 
+    *ngIf="CustomerModel.formCustomerGroup.dirty"
+    [hidden]="!(hasError('required', 'CustomerCodeControl'))"
+>Customer Code is required</div><br/>
+<table>
+    <tr>
+        <th>Customer Code</th>
+        <th>Customer name</th>
+        <th>Customer amount</th>
+    </tr>
+    <tr *ngFor="let cust of CustomerModels">
+        <td>{{cust.CustomerCode}} </td>
+        <td>{{cust.CustomerName}} </td>
+        <td>{{cust.CustomerAmount}} </td>
+    </tr>
+</table>
